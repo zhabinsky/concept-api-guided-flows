@@ -36,7 +36,8 @@ module.exports = async (req, res) => {
 
   const nextGuidedStep = availableSteps
     .sort((step1, step2) => step1.stepCount - step2.stepCount)
-    .find((step) => !step.skip && !step.completed);
+    .find((step) => !step.skip && !step.completed)
+    
 
   const hasCompletedSteps = !nextGuidedStep;
 
@@ -44,6 +45,8 @@ module.exports = async (req, res) => {
     apiPayloads,
     hasCompletedSteps,
     nextGuidedStep,
-    availableSteps,
+    availableSteps: availableSteps.map((e) => {
+      return { ...e, routeName: "/meow" }
+    }),
   });
 };
